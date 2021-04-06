@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - DB_LANG=ja_JP
+    container_name: postgres13.2-eclab
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    command: postgres -c log_destination=stderr -c log_statement=all -c log_connections=off -c log_disconnections=off
+    ports:
+      - "35432:5432"
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
